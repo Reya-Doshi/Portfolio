@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reya Doshi • Portfolio</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+  --bg: #ffffff;
+  --text: #0a1a4a;
+  --muted: #5c6275;
+  --accent1: #0a1a4a;
+  --accent2: #3bb4ff;
+  --card: rgba(255,255,255,0.9);
+  --shadow: rgba(0,0,0,0.1);
+  --pattern: radial-gradient(#d4d8e7 1px, transparent 1px);
+}
+
+
+.dark {
+--bg: #d4d8e7;
+  --text: #36454F;
+  --muted: #5c6275;
+  --accent1: #0a1a4a;
+  --accent2: #3bb4ff;
+  --card: rgba(255,255,255,0.9);
+  --shadow: rgba(0,0,0,0.5);
+  --pattern: radial-gradient(#fffdf1 1px, transparent 100px)
+  --pattern: radial-gradient(#fffdf1 0.8px, transparent 1px);*/
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.4s ease, color 0.4s ease;
+  background-image: var(--pattern);
+  background-size: 18px 18px;
+}
+
+.container {
+  max-width: 1150px;
+  margin: auto;
+  padding: 25px;
+}
+
+.fade { opacity:0; transform:translateY(25px); transition:1s; }
+.fade.show { opacity:1; transform:translateY(0); }
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 0;
+  position:sticky;
+  top:0;
+  z-index:20;
+  backdrop-filter:blur(10px);
+}
+
+.brand {
+  font-family:"Playfair Display", serif;
+  font-size:2rem;
+  background:linear-gradient(90deg, var(--accent2), var(--accent1));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.navlinks { display:flex; gap:18px; }
+.navlinks a {
+  text-decoration:none;
+  color:var(--muted);
+  font-weight:600;
+}
+.navlinks a:hover { color:var(--accent2); }
+
+/* Toggle */
+.theme-toggle {
+  width:48px;
+  height:24px;
+  background: var(--muted);
+  border-radius:20px;
+  position:relative;
+  cursor:pointer;
+}
+
+.toggle-circle {
+  width:20px;
+  height:20px;
+  background:white;
+  border-radius:50%;
+  position:absolute;
+  top:2px;
+  left:2px;
+  transition:0.3s;
+}
+
+.dark .toggle-circle {
+  transform:translateX(24px);
+  background:var(--accent2);
+}
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+.hero {
+  text-align:center;
+  padding:80px 10px 60px;
+}
+
+.hero h1 {
+  font-size:3rem;
+  font-family:"Playfair Display", serif;
+  background:linear-gradient(90deg, var(--accent2), var(--accent1));
+  -webkit-background-clip:text;
+  color:transparent;
+  margin-bottom:6px;
+}
+
+/* Typing box */
+.typing-wrapper {
+  margin:12px auto 0;
+  display:inline-block;
+  padding:10px 16px;
+  background: linear-gradient(180deg, rgba(59,180,255,0.06), rgba(10,26,74,0.02));
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(11,35,80,0.06);
+  max-width:90%;
+  text-align:center;
+}
+
+#typing {
+  display:inline-block;
+  font-size:1.15rem;
+  font-weight:600;
+  color:var(--accent2);
+  white-space:nowrap;
+  overflow:hidden;
+  vertical-align:middle;
+}
+
+.cursor {
+  display:inline-block;
+  width:8px;
+  height:1.05em;
+  margin-left:8px;
+  vertical-align:middle;
+  background:var(--text); /* use neutral color, remove strong blue */
+  border-radius:2px;
+  animation:blink 1s steps(2,start) infinite;
+}
+
+@keyframes blink { 50% { opacity:0 } }
+
+.tags {
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.tag {
+  padding:8px 14px;
+  background:var(--card);
+  border-radius:50px;
+  color:var(--muted);
+  backdrop-filter:blur(6px);
+  transition:transform .22s ease, box-shadow .22s ease;
+}
+
+.tag:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(11,35,80,0.06); }
+
+.project-link {
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 12px;
+  background:var(--accent1); /* neutral (dark) button instead of bright blue */
+  color:white;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+  box-shadow:0 8px 20px rgba(10,26,74,0.06);
+}
+
+.project-link:hover { transform:translateY(-3px); }
+
+.box { transition:transform .25s ease, box-shadow .25s ease; }
+.box:hover { transform:translateY(-6px); box-shadow:0 18px 40px rgba(11,35,80,0.08); }
+
+/* =========================================================
+   SECTIONS + CARDS
+   ========================================================= */
+.section { margin-top:50px; }
+
+.section h2 {
+  font-family:"Playfair Display", serif;
+  font-size:1.7rem;
+  margin-bottom:14px;
+  color:var(--accent1);
+}
+
+.card {
+  background:var(--card);
+  padding:22px;
+  border-radius:16px;
+  box-shadow:0 4px 20px var(--shadow);
+  backdrop-filter:blur(10px);
+}
+
+/* Grid */
+.grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap:16px;
+}
+
+.box {
+  padding:18px;
+  border-radius:16px;
+  background:var(--card);
+  color:var(--muted);
+  box-shadow:0 4px 14px var(--shadow);
+  backdrop-filter:blur(6px);
+}
+
+.box strong { color:var(--text); }
+
+/* Certifications grid */
+.cert-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:16px;
+  align-items:start;
+}
+
+.cert-card {
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:14px;
+  border-radius:12px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
+  box-shadow:0 8px 24px rgba(11,35,80,0.06);
+}
+
+.cert-icon{
+  flex:0 0 46px;
+  height:46px;
+  border-radius:10px;
+  background:var(--accent2);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+
+.cert-body { color:var(--text); }
+.cert-title { font-weight:700; margin-bottom:6px; }
+.cert-issuer { color:var(--muted); font-size:0.95rem; }
+
+.credly-btn {
+  display:inline-block;
+  padding:8px 14px;
+  background:transparent;
+  color:var(--accent1);
+  border:1px solid rgba(10,26,74,0.06);
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.credly-btn:hover { background:rgba(10,26,74,0.03); }
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+.skill { margin-bottom:16px; }
+.skill .label {
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:6px;
+  font-weight:600;
+  color:var(--muted);
+}
+
+.bar {
+  height:12px;
+  background:rgba(0,0,0,0.07);
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.bar i {
+  display:inline-block;
+  height:100%;
+  background:linear-gradient(90deg, var(--accent2), var(--accent1));
+  width:0;
+  transition:1.4s;
+}
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+.contact-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.contact-grid a {
+  text-decoration:none;
+  color:var(--accent2);
+  font-weight:600;
+}
+
+@media(max-width:900px){
+  .contact-grid {grid-template-columns:1fr;}
+}
+
+</style>
+</head>
+
+<body class="light">
+
+<div class="container">
+
+<!-- NAVBAR -->
+<header>
+  <div class="brand">Reya Doshi</div>
+
+  <nav class="navlinks">
+    <a href="#about">About</a>
+    <a href="#career">Career</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#certs">Certifications</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="theme-toggle" id="themeToggle">
+    <div class="toggle-circle"></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero fade">
+  <h1>Hi, I'm Reya Doshi</h1>
+  <div class="typing-wrapper">
+    <span id="typing" aria-live="polite"></span><span class="cursor" aria-hidden="true"></span>
+  </div>
+
+  <div class="tags">
+    <div class="tag">Information Technology</div>
+    <div class="tag">Developer</div>
+    <div class="tag">Google Student Ambassador</div>
+    <div class="tag">IITR Campus Ambassador</div>
+    <div class="tag">Poet • Zeyra</div>
+  </div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about" class="section fade">
+  <h2>About Me</h2>
+  <div class="card">
+    I’m a B.Tech IT student with strong interest in development, structured thinking, and creative problem solving.  
+    I love learning, building projects from scratch, and collaborating with people to bring ideas to life.
+  </div>
+</section>
+
+<!-- CAREER -->
+<section id="career" class="section fade">
+  <h2>Career Objective</h2>
+  <div class="card">
+    To grow as a technically strong and analytical IT professional by contributing to meaningful, research-based work while continuously improving through disciplined learning and collaboration.
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="section fade">
+  <h2>Education</h2>
+
+  <div class="grid">
+
+    <div class="box">
+      <strong>B.Tech • Information Technology</strong><br><br>
+      Bhoj Reddy Engineering College for Women<br>
+      GPA: 8.8<br>
+      2024 – 2028
+    </div>
+
+    <div class="box">
+      <strong>Intermediate • TSBIE</strong><br><br>
+      Aspire Junior College<br>
+      970 / 1000<br>
+      2022-2024
+    </div>
+
+    <div class="box">
+      <strong>Schooling • CBSE</strong><br><br>
+      Narayana School<br>
+      94%<br>
+      2022
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section fade">
+  <h2>Skills</h2>
+  <div class="card">
+
+    <div class="skill">
+      <div class="label"><span>C</span><span>Intermediate</span></div>
+      <div class="bar"><i style="width:60%"></i></div>
+    </div>
+
+    <div class="skill">
+      <div class="label"><span>HTML</span><span>Intermediate</span></div>
+      <div class="bar"><i style="width:65%"></i></div>
+    </div>
+
+    <div class="skill">
+      <div class="label"><span>Java</span><span>Basic</span></div>
+      <div class="bar"><i style="width:35%"></i></div>
+    </div>
+
+    <div class="skill">
+      <div class="label"><span>Python</span><span>Basic</span></div>
+      <div class="bar"><i style="width:34%"></i></div>
+    </div>
+
+    <div class="skill">
+      <div class="label"><span>Data Structures</span><span>Basic</span></div>
+      <div class="bar"><i style="width:45%"></i></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section fade">
+  <h2>Projects</h2>
+  <div class="grid">
+
+    <div class="box">
+      <strong>Saarthi</strong><br><br>
+      An AI-powered mental health companion created by team Nxyen (Ongoing)<br>
+      <a class="project-link" href="https://reya-doshi.github.io/Saarthi/" target="_blank" rel="noopener">Click to view the prototype</a>
+    </div>
+
+    <div class="box">
+      <strong>Portfolio Website</strong><br><br>
+      Designed and developed to represent my skills and personal journey.<br>
+      <a class="project-link" href="https://reya-doshi.github.io/Portfolio/" target="_blank" rel="noopener">Click to view my portfolio</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs" class="section fade">
+  <h2>Certifications & Achievements</h2>
+  <div class="grid">
+    <div class="box"><strong>NPTEL C Programming</strong><br>Elite — IIT Kharagpur</div>
+    <div class="box"><strong>Poster Presentation</strong><br>2nd Place — JNTUH</div>
+    <div class="box"><strong>VRK Events</strong><br>Debugging, Reverse Coding, Fast Typing</div>
+    <div class="box"><strong>International Hackathon</strong><br>MRECW</div>
+  </div>
+</section>
+
+<!-- BADGES -->
+<section id="badges" class="section fade">
+  <h2>Badges</h2>
+  <div class="grid">
+    <div class="box"><strong>SkillsBuild - Customer Engagement: Communication and Personality Dynamics</strong><br><small>IBM SkillsBuild</small></div>
+    <div class="box"><strong>SkillsBuild - Customer Engagement: Problem Solving and Process Controls</strong><br><small>IBM SkillsBuild</small></div>
+    <div class="box"><strong>Artificial Intelligence Fundamentals</strong><br><small>IBM SkillsBuild</small></div>
+    <div class="box"><strong>Digital Awareness</strong><br><small>Cisco</small></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section fade">
+  <h2>Contact</h2>
+
+  <div class="contact-grid card">
+
+    <div>
+      <p><strong>Phone:</strong>  
+        <a href="tel:+918688516680">+91 8688516680</a>
+      </p>
+
+      <p><strong>Personal Email:</strong>  
+        <a href="mailto:reyadoshi23@gmail.com">reyadoshi23@gmail.com</a>
+      </p>
+
+      <p><strong>College Email:</strong>  
+        <a href="mailto:24321a1273@gmail.com">24321a1273@gmail.com</a>
+      </p>
+    </div>
+
+    <div>
+      <p><strong>LinkedIn:</strong>  
+        <a href="https://www.linkedin.com/in/reya-d-12bb30356/" target="_blank">View Profile</a>
+      </p>
+      <p style="margin-top:6px;"><strong>Credly:</strong>
+        <a href="https://www.credly.com/users/reya-doshi/badges#credly" target="_blank" rel="noopener">View Badges</a>
+      </p>
+      <p style="margin-top:6px;"><strong>GitHub:</strong>
+        <a href="https://github.com/Reya-Doshi" target="_blank" rel="noopener">View Profile</a>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+<!-- =========================================================
+   JAVASCRIPT
+   ========================================================= -->
+<script>
+
+/* Fade Animation */
+document.querySelectorAll(".fade").forEach(el => {
+  new IntersectionObserver((entries)=>{
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add("show");
+    });
+  }, {threshold:0.2}).observe(el);
+});
+
+/* Typewriter Effect */
+const textArray = ["I'm a B.Tech IT student", "I'm a poet", "I'm a developer", "I'm a problem solver", "Google Student Ambassador", "IITR Campus Ambassador"];
+let index=0, char=0;
+
+// Ensure the typing box can fit the longest string (uses ch unit)
+const typingWrapper = document.querySelector('.typing-wrapper');
+if(typingWrapper){
+  const maxLen = Math.max(...textArray.map(s=>s.length));
+  typingWrapper.style.minWidth = (maxLen + 4) + 'ch';
+}
+
+function typeEffect(){
+  const t = document.getElementById("typing");
+  if(!t) return;
+  t.textContent = textArray[index].substring(0,char);
+
+  if(char < textArray[index].length){
+    char++;
+  } else {
+    setTimeout(()=>{char=0; index=(index+1)%textArray.length;}, 900);
+  }
+  setTimeout(typeEffect, 70);
+}
+typeEffect();
+
+/* Skills Animation */
+window.onload = ()=>{
+  document.querySelectorAll(".bar i").forEach((bar,i)=>{
+    let w=bar.style.width;
+    bar.style.width="0%";
+    setTimeout(()=>bar.style.width=w, 300 + i*180);
+  });
+};
+
+/* Theme Toggle FIXED */
+document.getElementById("themeToggle").onclick = ()=>{
+  document.body.classList.toggle("dark");
+  document.body.classList.toggle("light");
+};
+
+</script>
+
+</body>
+</html>
